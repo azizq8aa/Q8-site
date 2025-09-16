@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q8 Site - مجموعة مواقع الكويت الرقمية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.2); }
+        }
+
+        .subtitle {
+            color: #555;
+            margin-bottom: 50px;
+            font-size: 1.4rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .site-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .site-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .site-card:hover::before {
+            opacity: 1;
+        }
+
+        .site-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .site-card.dhikr {
+            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+            border-color: #4caf50;
+        }
+
+        .site-card.dhikr:hover {
+            border-color: #4caf50;
+            box-shadow: 0 25px 50px rgba(76, 175, 80, 0.2);
+        }
+
+        .site-card.bio {
+            background: linear-gradient(135deg, #e3f2fd, #f1f8ff);
+            border-color: #2196f3;
+        }
+
+        .site-card.bio:hover {
+            border-color: #2196f3;
+            box-shadow: 0 25px 50px rgba(33, 150, 243, 0.2);
+        }
+
+        .site-card.downloader {
+            background: linear-gradient(135deg, #fce4ec, #fff0f3);
+            border-color: #e91e63;
+        }
+
+        .site-card.downloader:hover {
+            border-color: #e91e63;
+            box-shadow: 0 25px 50px rgba(233, 30, 99, 0.2);
+        }
+
+        .site-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .site-card.dhikr .site-icon { animation-delay: 0s; }
+        .site-card.bio .site-icon { animation-delay: 0.5s; }
+        .site-card.downloader .site-icon { animation-delay: 1s; }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .site-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .visit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .visit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .developer-info {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+                margin: 10px;
+            }
+            
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .sites-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .site-card {
+                padding: 30px 20px;
+            }
+            
+            .site-icon {
+                font-size: 3rem;
+            }
+            
+            .site-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sparkle" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+        <div class="sparkle" style="top: 20%; right: 15%; animation-delay: 0.5s;"></div>
+        <div class="sparkle" style="bottom: 30%; left: 20%; animation-delay: 1s;"></div>
+        <div class="sparkle" style="bottom: 15%; right: 10%; animation-delay: 1.5s;"></div>
+        
+        <h1 class="main-title pulse">Q8 Site</h1>
+        <p class="subtitle">مجموعة مواقع الكويت الرقمية المتميزة</p>
+        
+        <div class="sites-grid">
+            <a href="https://azizq8aa.github.io/dhikr-github-pages/" class="site-card dhikr" target="_blank">
+                <span class="site-icon">📿</span>
+                <h3 class="site-title">أذكار المسلم</h3>
+                <p class="site-description">أذكار الصباح والمساء وأذكار النوم والباقيات الصالحات</p>
+                <button class="visit-btn">زيارة الموقع</button>
+            </a>
+            
+            <a href="https://azizq8aa.github.io/bio-builder-/" class="site-card bio" target="_blank">
+                <span class="site-icon">👤</span>
+                <h3 class="site-title">البطاقة التعريفية Q8 Bio</h3>
+                <p class="site-description">إنشاء بطاقات تعريفية مميزة وشخصية بتصميم احترافي</p>
+                <button class="visit-btn">زيارة الموقع</button>
+            </a>
+            
+            <a href="https://azizq8aa.github.io/Q8-downloader-/" class="site-card downloader" target="_blank">
+                <span class="site-icon">📱</span>
+                <h3 class="site-title">Q8 Downloader</h3>
+                <p class="site-description">تحميل الفيديوهات من منصات التواصل الاجتماعي بجودة عالية</p>
+                <button class="visit-btn">زيارة الموقع</button>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p><strong>مجموعة مواقع Q8 الرقمية</strong></p>
+            <p>حلول رقمية متكاملة للمجتمع الكويتي</p>
+            
+            <div class="developer-info">
+                <p>تم التطوير بواسطة azizq8aa مع مساعدة Manus AI Assistant</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إضافة تأثيرات تفاعلية
+        document.addEventListener('DOMContentLoaded', function() {
+            // تأثير النقر على البطاقات
+            const cards = document.querySelectorAll('.site-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+
+                // تأثير النقر
+                card.addEventListener('click', function(e) {
+                    // إنشاء تأثير الموجة
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // إضافة المزيد من النجوم المتلألئة
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                document.querySelector('.container').appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 2000);
+            }
+
+            // إنشاء نجوم متلألئة كل ثانيتين
+            setInterval(createSparkle, 2000);
+        });
+
+        // CSS للتأثير المتموج
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
